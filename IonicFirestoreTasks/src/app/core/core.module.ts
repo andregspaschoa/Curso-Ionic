@@ -5,7 +5,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AngularFireModule } from '@angular/fire/compat';
 
-import { AuthModule } from '@angular/fire/auth';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+//import { AuthModule } from '@angular/fire/auth';
 
 import { environment } from 'src/environments/environment';
 
@@ -15,7 +16,8 @@ import { environment } from 'src/environments/environment';
   imports: [
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
-    AuthModule
+    AngularFireAuthModule
+    //AuthModule
   ],
   exports: [
     BrowserModule,
