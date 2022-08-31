@@ -7,6 +7,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AuthProvider } from 'src/app/core/services/auth.types';
 import { OverlayService } from 'src/app/core/services/overlay.service';
@@ -32,6 +34,8 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
+    private navCtrl: NavController,
+    private route: ActivatedRoute,
     private overlayService: OverlayService
   ) {}
 
@@ -68,17 +72,21 @@ export class LoginPage implements OnInit {
       : this.authForm.removeControl('name');
   }
   async onSubmit(provider: AuthProvider): Promise<void> {
-    const loading = this.overlayService.loading();
+    const loading = await this.overlayService.loading();
     try {
       const credentials = await this.authService.authenticate({
         isSignIn: this.configs.isSignIn,
         user: this.authForm.value,
         provider,
       });
-      console.log('Authenticated: ', credentials);
-      console.log('Redirecting...');
+      this.navCtrl.navigateForward(this.route.snapshot.queryParamMap.get('redirect') || '/tasks');
     } catch (e) {
       console.log('Auth error: ', e);
+      this.overlayService.toast({
+      message: e.message
+      });
+      } finally {
+      loading.dismiss();
     }
   }
 }
