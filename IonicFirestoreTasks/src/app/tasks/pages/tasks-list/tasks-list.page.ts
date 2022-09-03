@@ -8,17 +8,14 @@ import { TasksService } from '../../services/tasks.service';
   templateUrl: './tasks-list.page.html',
   styleUrls: ['./tasks-list.page.scss'],
 })
-export class TasksListPage implements OnInit {
+export class TasksListPage {
 
   tasks$: Observable<Task[]>;
 
   constructor(private tasksService: TasksService) { }
 
-  ngOnInit() {
-    this.tasks$ = of([
-      { id: '13214af', title: 'Aprender Ionic', done: false },
-      { id: '1371978', title: 'Aprender Firestore', done: false }
-    ]);
+  ionViewDidEnter(): void {
+    this.tasks$ = this.tasksService.getAll();
   }
 
 }
