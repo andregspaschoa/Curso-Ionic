@@ -11,6 +11,9 @@
       <app-task-item
         *ngFor="let task of tasks"
         [task]="task"
+        (update)="onUpdate($event)"
+        (delete)="onDelete($event)"
+        (done)="onDone($event)"
       ></app-task-item>
     </ng-container>
     <ng-template #noTasks>
@@ -23,8 +26,8 @@
     slot="fixed"
   >
     <ion-fab-button
-      routerLink="/tasks/create"
-      routerDirection="forward"
+    routerLink="/tasks/create"
+    routerDirection="forward"
     >
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
