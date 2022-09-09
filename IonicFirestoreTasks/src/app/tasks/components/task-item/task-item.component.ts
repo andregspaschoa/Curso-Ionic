@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+//import { create } from 'domain';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -12,5 +13,6 @@ export class TaskItemComponent {
   @Output() done = new EventEmitter<Task>();
   @Output() update = new EventEmitter<Task>();
   @Output() delete = new EventEmitter<Task>();
+  //@Output() create = new EventEmitter<Task>();
 
 }
