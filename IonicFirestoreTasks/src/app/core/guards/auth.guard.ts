@@ -9,16 +9,19 @@ import {
   Route,
   Router,
   RouterStateSnapshot,
-  UrlSegment
+  UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
+  constructor(private authService: AuthService, private router: Router) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -34,19 +37,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
-    // tasks/edit/9
-    const url = segments.map(s => `/${s}`).join('');
+    const url = segments.map((s) => `/${s}`).join('');
     return this.checkAuthState(url).pipe(take(1));
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
-  // /tasks/create
   private checkAuthState(redirect: string): Observable<boolean> {
     return this.authService.isAuthenticated.pipe(
       tap((is) => {
         if (!is) {
           this.router.navigate(['/login'], {
-            queryParams: { redirect }, // /login?redirect=/tasks/create
+            queryParams: { redirect }
           });
         }
       })

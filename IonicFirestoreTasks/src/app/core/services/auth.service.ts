@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/semi */
 import { Injectable, Provider } from '@angular/core';
-//import { FirebaseApp } from '@angular/fire/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-//import { auth } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FacebookAuthProvider, UserCredential } from 'firebase/auth';

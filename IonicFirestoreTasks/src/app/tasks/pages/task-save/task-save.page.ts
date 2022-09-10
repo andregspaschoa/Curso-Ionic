@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
+
 import { OverlayService } from 'src/app/core/services/overlay.service';
 import { TasksService } from '../../services/tasks.service';
 
@@ -25,7 +26,7 @@ export class TaskSavePage implements OnInit {
     private tasksService: TasksService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createForm();
     this.init();
   }
@@ -39,12 +40,12 @@ export class TaskSavePage implements OnInit {
     this.taskId = taskId;
     this.pageTitle = 'Edit Task';
     this.tasksService
-    .get(taskId)
-    .pipe(take(1))
-    .subscribe(({ title, done }) => {
-      this.taskForm.get('title').setValue(title);
-      this.taskForm.get('done').setValue(done);
-    });
+      .get(taskId)
+      .pipe(take(1))
+      .subscribe(({ title, done }) => {
+        this.taskForm.get('title').setValue(title);
+        this.taskForm.get('done').setValue(done);
+      });
   }
 
   private createForm(): void {
@@ -56,22 +57,22 @@ export class TaskSavePage implements OnInit {
 
   async onSubmit(): Promise<void> {
     const loading = await this.overlayService.loading({
-      message: 'Saving...'
+      message: 'Saving...',
     });
     try {
       const task = !this.taskId
         ? await this.tasksService.create(this.taskForm.value)
         : await this.tasksService.update({
-          id: this.taskId,
-          ...this.taskForm.value
-        });
+            id: this.taskId,
+            ...this.taskForm.value,
+          });
       this.navCtrl.navigateBack('/tasks');
     } catch (error) {
       console.log('Error saving Task: ', error);
       await this.overlayService.toast({
-        message: error.message
+        message: error.message,
       });
-    } finally{
+    } finally {
       loading.dismiss();
     }
   }

@@ -1,11 +1,13 @@
 <ion-split-pane
-contentId="menu-content"
-when="md"
+  contentId="menu-content"
+  when="md"
 >
+
   <ion-menu
-   contentId="menu-content"
-   menuId="main-menu"
-   [disabled]="true">
+    contentId="menu-content"
+    menuId="main-menu"
+    [disabled]="true"
+  >
 
     <ion-header>
       <ion-toolbar color="primary">
@@ -17,15 +19,18 @@ when="md"
       <ion-list>
         <ion-list-header *ngIf="user">{{ user.displayName }}</ion-list-header>
         <ion-menu-toggle autoHide="false">
-          <ion-item button
-          *ngFor="let page of pages"
-          [routerLink]="page.url"
-          [routerDirection]=""
+          <ion-item
+            button
+            *ngFor="let page of pages"
+            [routerLink]="page.url"
+            [routerDirection]=""
           >
-          <ion-icon slot="start" [name]="page.icon"
-          ></ion-icon>
-          <ion-label>{{ page.text }}</ion-label>
-         </ion-item>
+            <ion-icon
+              slot="start"
+              [name]="page.icon"
+            ></ion-icon>
+            <ion-label>{{ page.text }}</ion-label>
+          </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
@@ -33,4 +38,5 @@ when="md"
   </ion-menu>
 
   <ion-router-outlet id="menu-content"></ion-router-outlet>
+
 </ion-split-pane>

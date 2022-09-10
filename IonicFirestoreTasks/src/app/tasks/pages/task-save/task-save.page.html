@@ -4,18 +4,21 @@
       <ion-back-button defaultHref="/tasks"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ pageTitle }}</ion-title>
-    <app-logout-button slot="end" menu="main-menu"></app-logout-button>
+    <app-logout-button
+      slot="end"
+      menu="main-menu"
+    ></app-logout-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <form
     [formGroup]="taskForm"
-    (submit)="onSubmit"
+    (submit)="onSubmit()"
   >
     <ion-item>
       <ion-icon
-        name="list-circle-outline"
+        name="paper"
         slot="start"
         color="primary"
       ></ion-icon>
@@ -28,10 +31,10 @@
       >
       </ion-input>
       <ion-toggle
-      *ngIf="taskId"
-      slot="end"
-      color="primary"
-      formControlName="done"
+        *ngIf="taskId"
+        slot="end"
+        color="primary"
+        formControlName="done"
       ></ion-toggle>
     </ion-item>
     <ion-button
